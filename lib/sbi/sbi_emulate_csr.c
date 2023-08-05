@@ -64,6 +64,16 @@ int sbi_emulate_csr_read(int csr_num, struct sbi_trap_regs *regs,
 			return -1;
 		*csr_val = csr_read(CSR_MHPMCOUNTER4);
 		break;
+	case CSR_MHPMCOUNTER5:
+		if (!((cen >> (3 + CSR_MHPMCOUNTER5 - CSR_MHPMCOUNTER3)) & 1))
+			return -1;
+		*csr_val = csr_read(CSR_MHPMCOUNTER5);
+		break;
+	case CSR_MHPMCOUNTER6:
+		if (!((cen >> (3 + CSR_MHPMCOUNTER6 - CSR_MHPMCOUNTER3)) & 1))
+			return -1;
+		*csr_val = csr_read(CSR_MHPMCOUNTER6);
+		break;
 #if __riscv_xlen == 32
 	case CSR_HTIMEDELTAH:
 		if (prev_mode == PRV_S && !virt)
@@ -97,12 +107,28 @@ int sbi_emulate_csr_read(int csr_num, struct sbi_trap_regs *regs,
 			return -1;
 		*csr_val = csr_read(CSR_MHPMCOUNTER4H);
 		break;
+	case CSR_MHPMCOUNTER5H:
+		if (!((cen >> (3 + CSR_MHPMCOUNTER5 - CSR_MHPMCOUNTER3)) & 1))
+			return -1;
+		*csr_val = csr_read(CSR_MHPMCOUNTER5H);
+		break;
+	case CSR_MHPMCOUNTER6H:
+		if (!((cen >> (3 + CSR_MHPMCOUNTER6 - CSR_MHPMCOUNTER3)) & 1))
+			return -1;
+		*csr_val = csr_read(CSR_MHPMCOUNTER6H);
+		break;
 #endif
 	case CSR_MHPMEVENT3:
 		*csr_val = csr_read(CSR_MHPMEVENT3);
 		break;
 	case CSR_MHPMEVENT4:
 		*csr_val = csr_read(CSR_MHPMEVENT4);
+		break;
+	case CSR_MHPMEVENT5:
+		*csr_val = csr_read(CSR_MHPMEVENT5);
+		break;
+	case CSR_MHPMEVENT6:
+		*csr_val = csr_read(CSR_MHPMEVENT6);
 		break;
 	default:
 		ret = SBI_ENOTSUPP;
@@ -146,6 +172,12 @@ int sbi_emulate_csr_write(int csr_num, struct sbi_trap_regs *regs,
 	case CSR_MHPMCOUNTER4:
 		csr_write(CSR_MHPMCOUNTER4, csr_val);
 		break;
+	case CSR_MHPMCOUNTER5:
+		csr_write(CSR_MHPMCOUNTER5, csr_val);
+		break;
+	case CSR_MHPMCOUNTER6:
+		csr_write(CSR_MHPMCOUNTER6, csr_val);
+		break;
 #if __riscv_xlen == 32
 	case CSR_HTIMEDELTAH:
 		if (prev_mode == PRV_S && !virt)
@@ -165,12 +197,24 @@ int sbi_emulate_csr_write(int csr_num, struct sbi_trap_regs *regs,
 	case CSR_MHPMCOUNTER4H:
 		csr_write(CSR_MHPMCOUNTER4H, csr_val);
 		break;
+	case CSR_MHPMCOUNTER5H:
+		csr_write(CSR_MHPMCOUNTER5H, csr_val);
+		break;
+	case CSR_MHPMCOUNTER6H:
+		csr_write(CSR_MHPMCOUNTER6H, csr_val);
+		break;
 #endif
 	case CSR_MHPMEVENT3:
 		csr_write(CSR_MHPMEVENT3, csr_val);
 		break;
 	case CSR_MHPMEVENT4:
 		csr_write(CSR_MHPMEVENT4, csr_val);
+		break;
+	case CSR_MHPMEVENT5:
+		csr_write(CSR_MHPMEVENT5, csr_val);
+		break;
+	case CSR_MHPMEVENT6:
+		csr_write(CSR_MHPMEVENT6, csr_val);
 		break;
 	default:
 		ret = SBI_ENOTSUPP;

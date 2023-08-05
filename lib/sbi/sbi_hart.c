@@ -406,7 +406,7 @@ static void hart_detect_features(struct sbi_scratch *scratch)
 
 int sbi_hart_init(struct sbi_scratch *scratch, u32 hartid, bool cold_boot)
 {
-	int rc;
+  int rc;
 
 	if (cold_boot) {
 		if (misa_extension('H'))
@@ -421,7 +421,7 @@ int sbi_hart_init(struct sbi_scratch *scratch, u32 hartid, bool cold_boot)
 
 	hart_detect_features(scratch);
 
-	mstatus_init(scratch, hartid);
+  mstatus_init(scratch, hartid);
 
 	rc = fp_init(hartid);
 	if (rc)
